@@ -38,4 +38,13 @@ public class PipeManager : MonoBehaviour
             }
         }
     }
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+            Invoke("DestroyPipe", 5f);
+    }
+    void DestroyPipe()
+    {
+        Destroy(gameObject);
+    }
 }
