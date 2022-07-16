@@ -20,16 +20,27 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public float turnSpeed=5f;
     public float velocity=10f;
+    public static bool gameOver;
+    private Transform finishcoor;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        finishcoor = GameObject.FindWithTag("Finish").transform;
+        gameOver = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement move = new Movement();
-        rb.AddForce(move.AddMove(turnSpeed, velocity), ForceMode.Impulse);
+        if(transform.position.y < finishcoor.position.y)
+        {
+            gameOver = true;
+        }
+        if(!gameOver)
+        {
+            Movement move = new Movement();
+            rb.AddForce(move.AddMove(turnSpeed, velocity), ForceMode.Impulse);
+        }
     }
 }

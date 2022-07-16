@@ -12,6 +12,7 @@ public class PipeManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(AddTaqueSpeed(() => !PlayerController.gameOver));
     }
 
     // Update is called once per frame
@@ -29,22 +30,33 @@ public class PipeManager : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            if (shouldGenerate != null)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                shouldGenerate();
-                shouldGenerate = null;
+                if (shouldGenerate != null)
+                {
+                    shouldGenerate();
+                    shouldGenerate = null;
+                }
             }
-        }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
-            Invoke("DestroyPipe", 5f);
+        if(!PlayerController.gameOver)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+                Invoke("DestroyPipe", 5f);
+        }
     }
     void DestroyPipe()
     {
         Destroy(gameObject);
+    }
+    IEnumerator AddTaqueSpeed(Func<bool> isGamerunning)
+    {
+        while(isGamerunning())
+        {
+            yield return new WaitForSeconds(3f);
+            tarqueSpeed += 0.5f;
+        }
     }
 }
