@@ -34,5 +34,6 @@ public class UiManager : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene(0);
+        start = null;
     }
 }
