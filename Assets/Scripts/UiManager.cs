@@ -31,6 +31,10 @@ public class UiManager : MonoBehaviour
         start();
         startPanel.SetActive(false);
     }
+    public void FadePanel()
+    {
+        endPanel.SetActive(false);
+    }
     public void GameOver()
     {
         SceneManager.LoadScene(0);
