@@ -49,7 +49,8 @@ public class PipeManager : MonoBehaviour
     }
     void DestroyPipe()
     {
-        Destroy(gameObject);
+        if(PlayerController.gameOver != true) 
+            Destroy(gameObject);
     }
    
 }
