@@ -26,21 +26,29 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        finishcoor = GameObject.FindWithTag("Finish").transform;
         gameOver = false;
+        UiManager.start += UseGravity;
+        rb.useGravity = false;
+        finishcoor = GameObject.FindWithTag("Finish").transform;
     }
-
+    void UseGravity()
+    {
+        rb.useGravity = true;
+    }
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < finishcoor.position.y)
+       if(UiManager.startGame)
         {
-            gameOver = true;
-        }
-        if(!gameOver)
-        {
-            Movement move = new Movement();
-            rb.AddForce(move.AddMove(turnSpeed, velocity), ForceMode.Impulse);
+            if (transform.position.y < finishcoor.position.y)
+            {
+                gameOver = true;
+            }
+            if (!gameOver)
+            {
+                Movement move = new Movement();
+                rb.AddForce(move.AddMove(turnSpeed, velocity), ForceMode.Impulse);
+            }
         }
     }
 }

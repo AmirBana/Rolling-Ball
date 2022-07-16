@@ -7,12 +7,12 @@ public class PipeManager : MonoBehaviour
 {
     private Rigidbody rb;
     public Action shouldGenerate;
-    public float tarqueSpeed = 1f;
+    public float tarqueSpeed;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        StartCoroutine(AddTaqueSpeed(() => !PlayerController.gameOver));
+        tarqueSpeed = PipeGenerator.pipeTarqueSpeed;
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class PipeManager : MonoBehaviour
     {
             if (collision.gameObject.CompareTag("Player"))
             {
-                if (shouldGenerate != null)
+            if (shouldGenerate != null)
                 {
                     shouldGenerate();
                     shouldGenerate = null;
@@ -51,12 +51,5 @@ public class PipeManager : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    IEnumerator AddTaqueSpeed(Func<bool> isGamerunning)
-    {
-        while(isGamerunning())
-        {
-            yield return new WaitForSeconds(3f);
-            tarqueSpeed += 0.5f;
-        }
-    }
+   
 }
