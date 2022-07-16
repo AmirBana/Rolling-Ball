@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         rb.useGravity = true;
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
        if(UiManager.startGame)
         {
